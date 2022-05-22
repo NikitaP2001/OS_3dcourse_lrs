@@ -329,6 +329,7 @@ void g_main()
 
 int f(int x)
 {
+	sleep(100);
 	x = (x * 123) % 10;
 	x = (x + 321) % 10;
 	if (x % 2 == 0 && x % 3 != 0)
@@ -341,6 +342,8 @@ int f(int x)
 
 int g(int x)
 {
+	sleep(15);
+	return 0;
 	x = (x * 987) % 11;
 	x = (x - 789) % 11;
 	if (x % 3 == 0 && x % 2 != 0)
