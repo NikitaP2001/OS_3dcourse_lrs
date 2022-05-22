@@ -29,6 +29,9 @@ int main(int argc, char *argv[])
 {
 	char mapsbuf[1000];
 	char full_name[PATH_MAX];
+	char mem_path[PATH_MAX];
+	char maps_path[PATH_MAX];
+	char namel_path[PATH_MAX];
 	int fd_mem, status;
 	uint64_t off_beg, off_end, fbegrel = 0;
 	FILE *fmaps, *fdump;
@@ -38,9 +41,21 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+	if (strlen(argv[1]) > 10) {
+		puts("invalid pid");
+		exit(1);
+	}
+
+	// fill path pattern with provided pid
+	sprintf(mem_path, "/proc/%s/mem", argv[1]);
+	sprintf(maps_path, "/proc/%s/maps", argv[1]);
+	sprintf(namel_path, "/proc/%s/exe", argv[1]);
+
+
+
 	// get executable name
 	if (realpath(namel_path, full_name) == NULL) {
-		fprintf(stderr, "fail read symlink\n");
+		fprintf(stderr, "[-] get exec name\n");
 		exit(1);
 	}
 
